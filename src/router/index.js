@@ -36,7 +36,7 @@ const router =  new Router({
                 },{
                     path: '/policy',
                     component: resolve => require(['../components/page/policy.vue'], resolve),
-                    meta: { title: '政策法规', requireAuth: true, }
+                    meta: { title: '公务卡办理', requireAuth: true, }
                 },{
                     path: '/money',
                     component: resolve => require(['../components/page/policy.vue'], resolve),

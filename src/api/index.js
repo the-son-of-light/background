@@ -3,7 +3,7 @@ import qs from 'qs';
 import store from '../store/index'
 
 axios.defaults.timeout = 150000;
-axios.defaults.baseURL = 'http://101.200.36.164:8080';
+axios.defaults.baseURL = 'http://192.168.1.102:8080';
 axios.interceptors.request.use(
     config => {
         if(config.method === 'post'){

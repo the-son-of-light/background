@@ -8,34 +8,36 @@
                 <el-table-column
                 prop="username"
                 label="用户名"
-                
+                width="100"
                 >
                 </el-table-column>
                 <el-table-column
                 prop="name"
                 label="姓名"
-                
+                width="100"
                 align="center"
                 >
                 </el-table-column>
                  <el-table-column
-                prop="rolevalue"
+                prop="role"
                 label="权限"
+                width=600
                 align="center"
                 >
-                <!-- <template slot-scope="scope">
-                    <el-checkbox v-model="scope.row.rolevalue[0]">通知公告</el-checkbox>
-                    <el-checkbox v-model="scope.row.rolevalue[1]">政策法规</el-checkbox>
-                    <el-checkbox v-model="scope.row.rolevalue[2]">财务学堂</el-checkbox>
-                    <el-checkbox v-model="scope.row.rolevalue[3]">超级管理员</el-checkbox>
-                </template> -->
+                <template slot-scope="scope">
+                    <el-checkbox v-model="scope.row.role[0]" >通知公告</el-checkbox>
+                    <el-checkbox v-model="scope.row.role[1]" >财务学堂</el-checkbox>
+                    <el-checkbox v-model="scope.row.role[2]" >来款认领</el-checkbox>
+                    <el-checkbox v-model="scope.row.role[3]" >公务卡办理</el-checkbox>
+                    <el-checkbox v-model="scope.row.role[4]" >超级管理员</el-checkbox>
+                </template>
                 </el-table-column>
                 <el-table-column
                 prop="addDelete"
                 label="修改/删除权限"
                 align="center">
                     <template slot-scope="scope">
-                        <el-button type="primary" @click="add(scope.row)">修改</el-button>
+                        <el-button type="primary" @click="add(scope.row)">保存</el-button>
                         <el-button type="primary" @click="del(scope.row)">删除</el-button>             
                     </template>
                 </el-table-column>
@@ -91,41 +93,42 @@ export default {
                     }else if(i.sex == 0){
                         i.sex = "女"
                     }
-                    // for(let k of _this.options){
-                    //     if(k.value==i.role){
-                    //         i.rolevalue=k.label;
-                    //     }
-                    // }
+                    if(i.role == null || i.role == ''){
+                        i.role = '00000'
+                    }
+                    i.role = i.role.split('')
+                    for(let j in i.role ){
+                        i.role[j] == '0'?i.role[j] = false:i.role[j] = true;                       
+                    }
                     _this.tableData.push(i)
                 }
-                let abc = _this.tableData[0].role;
-                abc.split("")
-                console.log( abc.split(""))
                 this.total = res.obj.total;
             })
         },
-        // 获取下拉列表中更改的value值
-        changeF(e){
-            console.log(e)
-            this.value = e;
-        },
-        // 增加权限
+        // 保存权限
         add(id){
-            console.log(id.id)
+            let role = id.role;
+            for(let k in role){
+               role[k]?role[k]=1:role[k]=0;
+            }
+          
+            role.join('').split('')
+            console.log(role.join('').split(''))
             let authority = {
                 userid:id.id,
-                role:this.value
+                role:role.join('')
             }
+            console.log(authority.role)
             api.addAuthority(authority).then(res=>{
                 if(res.msg == "添加成功！"){
                     this.$message({
                         showClose: true,
-                        message: '修改成功',
+                        message: '保存成功',
                         type: 'success'
                     })
                 } 
+                this.getUser();
             })
-            this.getUser();
         },
         del(id){
             let delContent = {

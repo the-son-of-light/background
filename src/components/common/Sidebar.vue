@@ -55,14 +55,13 @@
                         title: '通知公告'
                     },
                     {
-                        icon: 'el-icon-rank',
-                        index: 'policy',
-                        title: '财政法规'
-                    },
-                    {
                         icon: 'el-icon-warning',
                         index: 'money',
                         title: '财政学堂'
+                    },{
+                        icon: 'el-icon-rank',
+                        index: 'policy',
+                        title: '公务卡办理'
                     }
                 ]
             }
