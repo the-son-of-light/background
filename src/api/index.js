@@ -3,7 +3,7 @@ import qs from 'qs';
 import store from '../store/index'
 
 axios.defaults.timeout = 150000;
-axios.defaults.baseURL = 'http://192.168.1.104:8080';
+axios.defaults.baseURL = 'http://192.168.1.103:8080';
 axios.interceptors.request.use(
     config => {
         if(config.method === 'post'){
@@ -65,6 +65,14 @@ export default {
             return res;
         }).catch(err => {
             console.error(err)
+        })
+    },
+    // 获取详情
+    getDetail(id){
+        return axios.post('/api/controller/QueryessayDetils',id).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.log(err)
         })
     },
     // 用户增删 /api/usermanage/controller/QueryUser page rows
@@ -139,22 +147,29 @@ export default {
             console.error(err);
         })
     },
-    // 政策法规 "/api/release/controller/AddPolicy" "pic","title","content"
-    publicPolicy(publicPage){
-        return axios.post('/api/release/controller/AddNotice',publicPage).then(res=>{
+    // 财政学堂 /api/release/controller/AddFinance  "pic","title","content"
+    money(publicPage){
+        return axios.post('/api/release/controller/AddFinance',publicPage).then(res=>{
             return res;
         }).catch(err=>{
             console.error(err);
         })
     },
-    // 财政学堂 /api/release/controller/AddFinance  "pic","title","content"
-    money(publicPage){
-        return axios.post('/api/release/controller/AddNotice',publicPage).then(res=>{
+    // 公务卡管理 "/api/release/controller/AddOfficial" "pic","title","content"
+    AddOfficial(publicPage){
+        return axios.post('/api/release/controller/AddOfficial',publicPage).then(res=>{
             return res;
         }).catch(err=>{
             console.error(err);
         })
-    }
- 
+    },
+    // 来款认领 "/api/release/controller/AddPolicy" "pic","title","content"
+    AddPolicy(publicPage){
+        return axios.post('/api/release/controller/AddPolicy',publicPage).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    },
 
 }

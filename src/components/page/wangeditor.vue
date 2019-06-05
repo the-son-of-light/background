@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="editor">
+  <div class="editor" id="editors">
     <div ref="toolbar" class="toolbar">
     </div>
     <div ref="editor" class="text">
@@ -9,6 +9,7 @@
 
 <script>
 import E from 'wangeditor'
+import { setTimeout } from 'timers';
 export default {
   name: 'Editorbar',
   data () {
@@ -29,7 +30,7 @@ export default {
     isClear: {
       type: Boolean,
       default: false
-    }
+    },
   },
   watch: {
     isClear (val) {
@@ -42,12 +43,13 @@ export default {
   },
   mounted () {
     this.seteditor()
-    this.editor.txt.html(this.value)
+    setTimeout(()=>{
+        this.editor.txt.html(this.value)
+    },1000)
   },
   methods: {
     seteditor () {
       this.editor = new E(this.$refs.toolbar, this.$refs.editor)
-
       this.editor.customConfig.uploadImgShowBase64 = true // base 64 存储图片
       this.editor.customConfig.uploadImgServer = 'http://101.200.36.164:8080/api/Administration/group/UploadImage1'// 配置服务器端地址
       this.editor.customConfig.uploadImgHeaders = {      }// 自定义 header
@@ -95,10 +97,7 @@ export default {
         },
         customInsert: (insertImg, result, editor) => {
           // 图片上传成功,插入图片的回调
-          console.log(insertImg)
-          console.log(result.data[0])
           insertImg(result.data[0])
-          console.log(this.editor.txt.html())
         }
       }
       this.editor.customConfig.onchange = (html) => {
@@ -107,7 +106,7 @@ export default {
       }
 
       // 创建富文本编辑器
-      this.editor.create()
+      this.editor.create()     // 创建富文本实例
     }
   }
 }

@@ -7,7 +7,7 @@ const router =  new Router({
   routes: [
         {
             path: '/',
-            redirect: '/show'
+            redirect: 'user'
         },
         {
             path: '/',
@@ -30,12 +30,12 @@ const router =  new Router({
                     meta: { title: '公务卡办理展示列表',requireAuth: true, }
                 },
                 {
-                    path: '/show',
+                    path: '/user',
                     component: resolve => require(['../components/page/show.vue'], resolve),
                     meta: { title: '通知公告展示列表',requireAuth: true, }
                 },   
                 {
-                    path: '/user',
+                    path: '/userManegement',
                     component: resolve => require(['../components/page/userManegement.vue'], resolve),
                     meta: { title: '用户管理',requireAuth: true, }
                 },      
@@ -59,7 +59,7 @@ const router =  new Router({
                     meta: { title: '公务卡办理', requireAuth: true, }
                 },{
                     path: '/money',
-                    component: resolve => require(['../components/page/policy.vue'], resolve),
+                    component: resolve => require(['../components/page/money.vue'], resolve),
                     meta: { title: '财政学堂', requireAuth: true,}
                 },{
                     path: '/confirm',
@@ -75,11 +75,6 @@ const router =  new Router({
         {
             path: '/404',
             component: resolve => require(['../components/page/404.vue'], resolve)
-        },
-       
-        {
-            path: '*',
-            redirect: '/404'
         }
     ]
 })

@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="policyBox">
         <div class="editor">
             <p>标题：<el-input style="width:95%;" v-model="titleInfo" placeholder="请输入内容"></el-input></p>
             <p>图片：
-                <a href="javascript:;" class="file">选择图片
+                <a href="javascript:;" class="file">选择文件
                     <input @change="uploadPhoto($event)" type="file" class="kyc-passin">
                 </a>
             </p>
@@ -23,15 +23,15 @@ import EditorBar from './wangeditor'
 
 export default {
     name:'policy',
-
     data(){
         return{
             image:'',
             titleInfo:'',
+            content: ``,
             editor: {
                 info: ''
             },
-            isClear: false
+            isClear: false,
         }
     },
     methods: {
@@ -58,16 +58,16 @@ export default {
                 console.log(this.image);  
             }
         },
-        // 保存内容
         saveHtml:function(event){
             let _this = this;
             console.log(this.image)
-            if(this.titleInfo == '' || this.image == '' || this.editor.info == ''){
+            if(this.titleInfo == '' || this.editor.info == ''){
                 this.$message({
                     showClose: true,
-                    message: '标题或缩略图或内容不能为空',
+                    message: '标题或内容不能为空',
                     type: 'warning'
                 })
+                return;
             }
             console.log(this.editor.info)
             let publicPage = {
@@ -76,22 +76,25 @@ export default {
                 content:_this.editor.info
             }
             console.log(publicPage.content)
-            api.publicPolicy(publicPage).then(res=>{
+            api.AddOfficial(publicPage).then(res=>{
                 console.log(res)
                 this.$message({
                     showClose: true,
-                    message: '添加成功',
+                    message: '保存成功',
                     type: 'success'
                 })
+                this.titleInfo = '';
+                this.image = '';
+                this.editor.info = '';
+                this.$router.push({
+                    path:'/policyList'
+                })
+                location.reload()
             }) 
-            this.titleInfo = '';
-            this.image = '';
-            this.editor.info = '';    
         },
         change (val) {
         this.editor.info1 = val
         }
-
     },
     components: {
         EditorBar
@@ -100,7 +103,6 @@ export default {
 </script>
 
 <style scoped>
-
 .editor{
     width: 100%;
 }
@@ -141,7 +143,8 @@ export default {
     height: 100px;
 }
 
-/* .editor >>> .ql-table{
-    background: red;
-} */
+.editor >>> .w-e-text-container{
+    height: 300px !important;   
+}
+
 </style>

@@ -36,7 +36,7 @@
                         title:'列表管理',
                         subs: [
                             {
-                                index: 'show',
+                                index: 'user',
                                 title: '通知公告列表'
                             },
                             {
@@ -58,7 +58,7 @@
                         title: '用户管理',
                         subs: [
                             {
-                                index: 'user',
+                                index: 'userManegement',
                                 title: '用户增删'
                             },
                             {
@@ -70,24 +70,6 @@
                                 title: '基本信息管理'
                             }
                         ]
-                    },
-                    {
-                        icon: 'el-icon-star-on',
-                        index: 'public',
-                        title: '通知公告'
-                    },
-                    {
-                        icon: 'el-icon-warning',
-                        index: 'money',
-                        title: '财政学堂'
-                    },{
-                        icon: 'el-icon-rank',
-                        index: 'policy',
-                        title: '公务卡办理'
-                    }, {
-                        icon: 'el-icon-star-on',
-                        index: 'confirm',
-                        title: '来款认领'
                     }
                 ]
             }
