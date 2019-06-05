@@ -7,13 +7,33 @@ const router =  new Router({
   routes: [
         {
             path: '/',
-            redirect: '/user'
+            redirect: '/show'
         },
         {
             path: '/',
             component: resolve => require(['../components/common/Home.vue'], resolve),
             meta: { title: '自述文件' },
             children:[
+                {
+                    path: '/moneyList',
+                    component: resolve => require(['../components/page/moneyList.vue'], resolve),
+                    meta: { title: '财务学堂展示列表',requireAuth: true, }
+                },
+                {
+                    path: '/confrimList',
+                    component: resolve => require(['../components/page/confrimList.vue'], resolve),
+                    meta: { title: '来款认领展示列表',requireAuth: true, }
+                },
+                {
+                    path: '/policyList',
+                    component: resolve => require(['../components/page/policyList.vue'], resolve),
+                    meta: { title: '公务卡办理展示列表',requireAuth: true, }
+                },
+                {
+                    path: '/show',
+                    component: resolve => require(['../components/page/show.vue'], resolve),
+                    meta: { title: '通知公告展示列表',requireAuth: true, }
+                },   
                 {
                     path: '/user',
                     component: resolve => require(['../components/page/userManegement.vue'], resolve),
@@ -41,7 +61,11 @@ const router =  new Router({
                     path: '/money',
                     component: resolve => require(['../components/page/policy.vue'], resolve),
                     meta: { title: '财政学堂', requireAuth: true,}
-                }
+                },{
+                    path: '/confirm',
+                    component: resolve => require(['../components/page/confirm.vue'], resolve),
+                    meta: { title: '来款认领',requireAuth: true, }
+                }, 
             ]
         },
         {

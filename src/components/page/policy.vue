@@ -3,16 +3,14 @@
         <div class="editor">
             <p>标题：<el-input style="width:95%;" v-model="titleInfo" placeholder="请输入内容"></el-input></p>
             <p>图片：
-                <a href="javascript:;" class="file">选择文件
+                <a href="javascript:;" class="file">选择图片
                     <input @change="uploadPhoto($event)" type="file" class="kyc-passin">
                 </a>
             </p>
             <p class="image">
                 <img :src="image" alt="">
             </p>
-            <quill-editor ref="myTextEditor"
-                v-model="content" :options="options">
-            </quill-editor>
+            <editor-bar v-model="editor.info" :isClear="isClear" @change="change"></editor-bar>
         </div>
         <div class="button">
             <el-button type="primary" @click="saveHtml">保存</el-button>
@@ -21,24 +19,22 @@
 </template>
 <script>
 import api from '../../api/index'
-import quillConfig from './editor'
+import EditorBar from './wangeditor'
 
 export default {
     name:'policy',
+
     data(){
         return{
             image:'',
             titleInfo:'',
-            content: ``,
-            options: quillConfig,
-            editorOption: {
-                theme:'snow'
-            }
+            editor: {
+                info: ''
+            },
+            isClear: false
         }
     },
     methods: {
-        onEditorReady(editor) { // 准备编辑器
-        },
         uploadPhoto(e) {
             let _this = this;
             // 利用fileReader对象获取file
@@ -64,20 +60,22 @@ export default {
         },
         // 保存内容
         saveHtml:function(event){
+            let _this = this;
             console.log(this.image)
-            if(this.titleInfo == '' || this.image == '' || this.content == ''){
+            if(this.titleInfo == '' || this.image == '' || this.editor.info == ''){
                 this.$message({
                     showClose: true,
                     message: '标题或缩略图或内容不能为空',
                     type: 'warning'
                 })
             }
-            console.log(this.content)
+            console.log(this.editor.info)
             let publicPage = {
-                pic:this.image,
-                title:this.titleInfo,
-                content:this.content
+                pic:_this.image,
+                title:_this.titleInfo,
+                content:_this.editor.info
             }
+            console.log(publicPage.content)
             api.publicPolicy(publicPage).then(res=>{
                 console.log(res)
                 this.$message({
@@ -88,18 +86,21 @@ export default {
             }) 
             this.titleInfo = '';
             this.image = '';
-            this.content = '';    
-        }
-    },
-    computed: {
-        editor() {
-            return this.$refs.myQuillEditor.quill;
+            this.editor.info = '';    
         },
+        change (val) {
+        this.editor.info1 = val
+        }
+
+    },
+    components: {
+        EditorBar
     }
 }
 </script>
 
 <style scoped>
+
 .editor{
     width: 100%;
 }
@@ -140,4 +141,7 @@ export default {
     height: 100px;
 }
 
+/* .editor >>> .ql-table{
+    background: red;
+} */
 </style>

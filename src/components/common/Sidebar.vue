@@ -31,6 +31,28 @@
                 collapse: false,
                 items: [
                     {
+                        icon:'el-icon-star-on',
+                        index:'1',
+                        title:'列表管理',
+                        subs: [
+                            {
+                                index: 'show',
+                                title: '通知公告列表'
+                            },
+                            {
+                                index: 'moneyList',
+                                title: '财政学堂列表'
+                            },
+                            {
+                                index: 'policyList',
+                                title: '公务卡办理列表'
+                            },{
+                                index: 'confrimList',
+                                title: '来款认领列表'
+                            }
+                        ]
+                    },
+                    {
                         icon: 'el-icon-date',
                         index: '3',
                         title: '用户管理',
@@ -62,6 +84,10 @@
                         icon: 'el-icon-rank',
                         index: 'policy',
                         title: '公务卡办理'
+                    }, {
+                        icon: 'el-icon-star-on',
+                        index: 'confirm',
+                        title: '来款认领'
                     }
                 ]
             }

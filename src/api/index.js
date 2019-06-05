@@ -3,7 +3,7 @@ import qs from 'qs';
 import store from '../store/index'
 
 axios.defaults.timeout = 150000;
-axios.defaults.baseURL = 'http://192.168.1.102:8080';
+axios.defaults.baseURL = 'http://192.168.1.104:8080';
 axios.interceptors.request.use(
     config => {
         if(config.method === 'post'){
@@ -56,6 +56,14 @@ export default {
         return axios.post('/openapi/admin/AdminLogin',user).then(res=>{
             return res;
         }).catch(err=>{
+            console.error(err)
+        })
+    },
+    // 获取页面内容 通知公告 /api/controller/Queryessay "page", "rows","type"
+    getPublicContent(showPublicContent){
+        return axios.post('/api/controller/Queryessay',showPublicContent).then(res => {
+            return res;
+        }).catch(err => {
             console.error(err)
         })
     },

@@ -25,12 +25,12 @@ const toolOptions = [
     [{'font': []}],
     [{'align': []}],
     ['clean'],
-    ['link', 'image', 'video']
+    ['link', 'image', 'video'],
+    ['table']
 ];
 const handlers = {
     image: function image() {
         var self = this;
- 
         var fileInput = this.container.querySelector('input.ql-image[type=file]');
         if (fileInput === null) {
             fileInput = document.createElement('input');
@@ -86,6 +86,36 @@ const handlers = {
             this.container.appendChild(fileInput);
         }
         fileInput.click();
+    },
+    link:function(){
+        console.log(123)
+    },
+    // 生成表格
+    addTable(tr,td){
+        let tableContent = '';
+        for(let i = 0; i < tr;i ++){
+            for(let j = 0;j < td;j ++){
+                tableContent +=`<tr><td></td></tr>`
+            }
+        }
+        console.log(tableContent)
+    },
+    table:function(){
+        let _this = this;
+        let table = this.container.querySelector('input.ql-table[type=table]');
+        let tr = this.container.querySelector('input.ql-table[type=tr]');
+        let td = this.container.querySelector('input.ql-table[type=td]');
+        if (!table) {   //判断是否有表格存在
+            table = document.createElement('table');
+            _this.handlers.addTable(7,4)
+            console.log(_this.handlers.addTable)
+            tr = document.createElement('tr');
+            td = document.createElement('td');
+            table.setAttribute('type', 'tale');
+
+            console.log(table,tr,td)
+        }
+        console.log('我是table')
     }
 };
  
@@ -97,5 +127,11 @@ export default {
             container: toolOptions,  // 工具栏选项
             handlers: handlers  // 事件重写
         }
+    },
+    initButton:function(){  //在使用的页面初始化按钮样式
+        const tableButton = document.querySelector('.ql-table');
+        tableButton.style.cssText = 'width:30px;border-radius:5px;'
+        tableButton.classList.add('el-icon-date')
+        tableButton.title = '添加表格'
     }
 };
