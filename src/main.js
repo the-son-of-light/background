@@ -14,6 +14,11 @@ import VueQuillEditor from 'vue-quill-editor';
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import global_ from './components/page/Global'
+import axios from 'axios'
+Vue.prototype.GLOBAL = global_;
+axios.defaults.baseURL=global_.BASE_URL;
+Vue.prototype.$ajax = axios;
 //const FastClick = require('fastclick')？？import he require的区别，require可以用在任何地方
 
 

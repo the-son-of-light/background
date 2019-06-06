@@ -11,6 +11,20 @@
                 <img :src="image" alt="">
             </p>
             <editor-bar v-model="editor.info" :isClear="isClear" @change="change"></editor-bar>
+            <div class="upload">
+                <el-upload
+                ref="upload"
+                class="upload"
+                :action="uploadUrl"
+                :on-success="handleSuccess"
+                :limit=3
+                multiple
+                method:="post"
+                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.csv,text/plain"
+                :file-list="fileList">
+                <el-button size="small" type="primary" plain>上传附件</el-button>
+                </el-upload>
+            </div>
         </div>
         <div class="button">
             <el-button type="primary" @click="saveHtml">保存</el-button>
@@ -20,11 +34,15 @@
 <script>
 import api from '../../api/index'
 import EditorBar from './wangeditor'
-
+let p = document.createElement('p')
+let a = document.createElement('a')
+let div = document.createElement('div')
 export default {
     name:'money',
     data(){
         return{
+            uploadUrl:this.GLOBAL.BASE_URL+'/api/Administration/group/UploadFile',
+            fileList:[],
             image:'',
             titleInfo:'',
             content: ``,
@@ -35,6 +53,28 @@ export default {
         }
     },
     methods: {
+        // 上传文件
+        handleSuccess(response,file, fileList){
+            //上传成功要处理的事
+            console.log(file.name)
+                response.data[0] == ''?
+                this.$message({
+                    showClose: true,
+                    message: '上传失败',
+                    type: 'warning'
+                }):
+                this.$message({
+                    showClose: true,
+                    message: '上传成功',
+                    type: 'success'
+                })
+            p.append(a)
+            a.innerText = file.name;
+            a.href = response.data[0];
+            a.download = file.name;
+            div.append(p)
+            this.editor.info += div.innerHTML;
+        },
         uploadPhoto(e) {
             let _this = this;
             // 利用fileReader对象获取file
@@ -100,6 +140,21 @@ export default {
 </script>
 
 <style scoped>
+.upload{
+    margin-top: 20px;
+}
+
+.upload >>> .upload{
+    width: 100%;
+    height: auto;
+}
+
+.upload >>> .el-upload {
+    width: 90px;
+    height: 34px;
+    background: none;
+    border:none;
+}
 .editor{
     width: 100%;
 }

@@ -44,9 +44,23 @@
                         </a>
                     </p>
                     <p class="image">
-                        <img :src="image" alt="">
+                        <img class="editorImage" :src="image" alt="">
                     </p>
                     <editor-bar v-model="editor.info" :isClear="isClear" @change="change"></editor-bar>
+                    <div class="upload">
+                        <el-upload
+                        ref="upload"
+                        class="upload"
+                        :action="uploadUrl"
+                        :on-success="handleSuccess"
+                        :limit=3
+                        multiple
+                        method:="post"
+                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.csv,text/plain"
+                        :file-list="fileList">
+                        <el-button size="small" type="primary" plain>上传附件</el-button>
+                        </el-upload>
+                    </div> 
                 </div>
                 <div class="button">
                     <el-button type="primary" @click="saveHtml">保存</el-button>
@@ -58,10 +72,15 @@
 <script>
 import api from '../../api/index'
 import EditorBar from './wangeditor'
+let p = document.createElement('p')
+let a = document.createElement('a')
+let div = document.createElement('div')
 export default {
     name:'show',
     data(){
         return{
+            uploadUrl:this.GLOBAL.BASE_URL+'/api/Administration/group/UploadFile',
+            fileList:[],
             currentPage:1,
             pagesize:10,
             total:0,
@@ -80,6 +99,28 @@ export default {
         this.showPublic();
     },
     methods:{
+         // 上传文件
+        handleSuccess(response,file, fileList){
+            //上传成功要处理的事
+            console.log(file.name)
+                response.data[0] == ''?
+                this.$message({
+                    showClose: true,
+                    message: '上传失败',
+                    type: 'warning'
+                }):
+                this.$message({
+                    showClose: true,
+                    message: '上传成功',
+                    type: 'success'
+                })
+            p.append(a)
+            a.innerText = file.name;
+            a.href = response.data[0];
+            a.download = file.name;
+            div.append(p)
+            this.editor.info += div.innerHTML;
+        },
         // 页面展示
         showPublic(){
             let showPolicyContent = {
@@ -100,6 +141,7 @@ export default {
         },
         // 编辑修改页面内容
         editorContent(id){
+            this.value = id.id;
             this.dialogVisible = true;
             let getId = {
                 id:id.id
@@ -110,6 +152,8 @@ export default {
                 let resData = res.obj;//后台返回的数据
                 this.titleInfo = resData.title;//标题内容
                 this.editor.info = resData.content;//编辑器内容
+                this.image = this.GLOBAL.BASE_URL+'/'+resData.pic;
+                console.log(this.image)
                 this.showPublic();//重新调用接口 刷新页面
             })
         },
@@ -168,12 +212,13 @@ export default {
             }
             console.log(this.editor.info)
             let publicPage = {
+                id:this.value,
                 pic:_this.image,
                 title:_this.titleInfo,
                 content:_this.editor.info
             }
             console.log(publicPage.content)
-            api.publicContent(publicPage).then(res=>{
+            api.UpdateNotice(publicPage).then(res=>{
                 console.log(res)
                 this.$message({
                     showClose: true,
@@ -198,6 +243,26 @@ export default {
 }
 </script>
 <style scoped>
+.editorImage{
+    margin: 20px 0;
+
+}
+.upload{
+    margin-top: 20px;
+}
+
+.upload >>> .upload{
+    width: 100%;
+    height: auto;
+}
+
+.upload >>> .el-upload {
+    width: 90px;
+    height: 34px;
+    background: none;
+    border:none;
+}
+
 .addUserBtn{
     width: 100%;
     display:flex;
@@ -257,6 +322,10 @@ export default {
 .image img{
     width: 100px;
     height: 100px;
+}
+
+.editor .editor{
+    width: 100%;
 }
 
 .editor >>> .w-e-toolbar{

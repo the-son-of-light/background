@@ -3,7 +3,7 @@ import qs from 'qs';
 import store from '../store/index'
 
 axios.defaults.timeout = 150000;
-axios.defaults.baseURL = 'http://192.168.1.103:8080';
+axios.defaults.baseURL = '172.16.5.85';
 axios.interceptors.request.use(
     config => {
         if(config.method === 'post'){
@@ -147,6 +147,14 @@ export default {
             console.error(err);
         })
     },
+    // 修改通知公告 /api/release/controller/UpdateNotice  "id","title","content"
+    UpdateNotice(content){
+        return axios.post('/api/release/controller/UpdateNotice',content).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    },
     // 财政学堂 /api/release/controller/AddFinance  "pic","title","content"
     money(publicPage){
         return axios.post('/api/release/controller/AddFinance',publicPage).then(res=>{
@@ -155,9 +163,26 @@ export default {
             console.error(err);
         })
     },
+    // 修改财政学堂 /api/release/controller/UpdateFinance "pic","title","content"
+    UpdateFinance(content){
+        return axios.post('/api/release/controller/UpdateFinance',content).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    },
+
     // 公务卡管理 "/api/release/controller/AddOfficial" "pic","title","content"
     AddOfficial(publicPage){
         return axios.post('/api/release/controller/AddOfficial',publicPage).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    },
+    // 修改公务卡办理 /api/release/controller/UpdateOfficial "pic","title","content"
+    UpdateOfficial(content){
+        return axios.post('/api/release/controller/UpdateOfficial',content).then(res=>{
             return res;
         }).catch(err=>{
             console.error(err);
@@ -171,5 +196,13 @@ export default {
             console.error(err);
         })
     },
+    // 修改来款认领 /api/release/controller/UpdatePolicy
+    UpdatePolicy(content){
+        return axios.post('/api/release/controller/UpdatePolicy',content).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    }
 
 }
