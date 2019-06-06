@@ -3,7 +3,7 @@ import qs from 'qs';
 import store from '../store/index'
 
 axios.defaults.timeout = 150000;
-axios.defaults.baseURL = '172.16.5.85';
+axios.defaults.baseURL = 'http://cwcwx.wfust.edu.cn';
 axios.interceptors.request.use(
     config => {
         if(config.method === 'post'){
@@ -22,7 +22,7 @@ axios.interceptors.request.use(
     // http response 拦截器
     axios.interceptors.response.use(
       response => {
-        console.log(response.data.code)
+        // console.log(response.data.code)
         if(response.data.code==115){
           this.$message({
             showClose: true,
@@ -59,11 +59,35 @@ export default {
             console.error(err)
         })
     },
-    // 获取页面内容 通知公告 /api/controller/Queryessay "page", "rows","type"
+    // 获取页面内容 通知公告 /api/controller/QueryNotice "page", "rows","type"
     getPublicContent(showPublicContent){
-        return axios.post('/api/controller/Queryessay',showPublicContent).then(res => {
+        return axios.post('/api/controller/QueryNotice',showPublicContent).then(res => {
             return res;
         }).catch(err => {
+            console.error(err)
+        })
+    },
+    // 获取财政学堂页面内容 /api/controller/QueryFinance 
+    QueryFinance(showPublicContent){
+        return axios.post('/api/controller/QueryFinance',showPublicContent).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    },
+    // 获取公务卡页面内容 /api/controller/QueryOfficial 
+    QueryOfficial(showPublicContent){
+        return axios.post('/api/controller/QueryOfficial',showPublicContent).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err)
+        })
+    },
+    // 获取来款认领页面内容  /api/controller/QueryPolicy
+    QueryPolicy(showPublicContent){
+        return axios.post('/api/controller/QueryPolicy',showPublicContent).then(res=>{
+            return res;
+        }).catch(err=>{
             console.error(err)
         })
     },

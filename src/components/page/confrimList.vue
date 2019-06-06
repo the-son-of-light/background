@@ -128,7 +128,12 @@ export default {
                 rows:this.pagesize,
                 type:3
             }
-            api.getPublicContent(showPolicyContent).then(res=>{
+            api.QueryPolicy(showPolicyContent).then(res=>{
+                this.$message({
+                    showClose: true,
+                    message: res.msg,
+                    type: 'warning'
+                })
                 this.tableData = res.obj.rows;
                 this.total = res.obj.total;
             })

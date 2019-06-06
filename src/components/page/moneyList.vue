@@ -92,7 +92,8 @@ export default {
                 info: ''
             },
             isClear: false,
-            value:''
+            value:'',
+            imgUrl:''
         }
     },
     created(){
@@ -128,7 +129,12 @@ export default {
                 rows:this.pagesize,
                 type:2
             }
-            api.getPublicContent(showPolicyContent).then(res=>{
+            api.QueryFinance(showPolicyContent).then(res=>{
+                this.$message({
+                    showClose: true,
+                    message: res.msg,
+                    type: 'warning'
+                })
                 this.tableData = res.obj.rows;
                 this.total = res.obj.total;
             })
@@ -164,6 +170,7 @@ export default {
             })
         },
         editorContent(id){
+            let _this = this;
             this.value = id.id;
             this.dialogVisible = true;
             let getId = {
@@ -173,6 +180,7 @@ export default {
                 console.log(res)
                 this.editor.info = '';
                 let resData = res.obj;//后台返回的数据
+                _this.imgUrl = resData.pic;
                 this.titleInfo = resData.title;//标题内容
                 this.editor.info = resData.content;//编辑器内容
                 this.image = this.GLOBAL.BASE_URL+'/'+resData.pic;
@@ -212,7 +220,7 @@ export default {
             console.log(this.editor.info)
             let publicPage = {
                 id:this.value,
-                pic:_this.image,
+                pic:_this.imgUrl,
                 title:_this.titleInfo,
                 content:_this.editor.info
             }
@@ -260,6 +268,23 @@ export default {
     height: 34px;
     background: none;
     border:none;
+}
+
+.editor >>> table{
+    border: 1px solid #333;
+    text-align: center;
+}
+
+.editor >>> th{
+    border: 1px solid #333;
+}
+
+.editor >>> td{
+    border: 1px solid #333;
+}
+
+.editor >>> tr{
+    border: 1px solid #333;
 }
 
 .editorImage{

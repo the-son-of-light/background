@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <!-- 折叠按钮 -->
-        <div class="collapse-btn" @click="collapseChage">
+        <div class="collapse-btn" >
             <i class="el-icon-menu"></i>
         </div>
         <div class="logo">后台管理系统</div>
@@ -63,10 +63,10 @@
                 }
             },
             // 侧边栏折叠
-            collapseChage(){
-                this.collapse = !this.collapse;
-                bus.$emit('collapse', this.collapse);
-            },
+            // collapseChage(){
+            //     this.collapse = !this.collapse;
+            //     bus.$emit('collapse', this.collapse);
+            // },
             // 全屏事件
             handleFullScreen(){
                 let element = document.documentElement;
@@ -95,11 +95,11 @@
                 this.fullscreen = !this.fullscreen;
             }
         },
-        mounted(){
-            if(document.body.clientWidth < 1500){//根据屏幕大小进行伸缩。
-                this.collapseChage();
-            }
-        }
+        // mounted(){
+        //     if(document.body.clientWidth < 600){//根据屏幕大小进行伸缩。
+        //         this.collapseChage();
+        //     }
+        // }
     }
 </script>
 <style scoped>

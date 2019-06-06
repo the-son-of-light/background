@@ -7,12 +7,6 @@
             <p><span>手机号：</span><el-input style="width:200px;" v-model="inputTel" placeholder="请输入内容"></el-input></p>
             <p><el-button type="primary" @click="editorbase">确定</el-button></p>
         </div>
-        <div class="addUserInfo">
-            <p><span>旧密码：</span><el-input style="width:200px;" v-model="inputlogin" placeholder="请输入内容"></el-input></p>
-            <p><span>密码：</span><el-input style="width:200px;" v-model="inputPass" placeholder="请输入内容"></el-input></p>
-            <p><span>确认密码：</span><el-input style="width:200px;" v-model="confirmPwd" placeholder="请输入内容"></el-input></p>
-            <p><el-button type="primary" @click="confirmPass">确定</el-button></p>
-        </div>
     </div>
 </template>
 <script>
@@ -86,38 +80,14 @@ export default {
                 })
             })
             this.getBaseUser();
-        },
-        // 确认密码
-        confirmPass(){
-            let password = {
-                password:this.inputlogin,
-                newPwd:this.inputPass,
-                confirmPwd:this.confirmPwd
-            }
-            api.editorPass(password).then(res=>{
-                if(res.code == 0){
-                    this.$message({
-                        showClose: true,
-                        message: res.msg,
-                        type: 'success'
-                    })
-                }else{
-                    this.$message({
-                        showClose: true,
-                        message: res.msg,
-                        type: 'warning'
-                    })
-                }
-                
-            })
         }
-
     }
 }
 </script>
 
 <style scoped>
 .baseUserInfo{
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -129,7 +99,6 @@ export default {
     justify-content: center;
     flex-direction: column;
     padding-bottom: 20px;
-    border-bottom: 2px solid #fff;
 }
 .addUserInfo p {
     margin-top: 10px;

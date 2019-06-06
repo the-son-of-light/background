@@ -92,7 +92,8 @@ export default {
                 info: ''
             },
             isClear: false,
-            value:''
+            value:'',
+            imgUrl:''
         }
     },
     created(){
@@ -128,7 +129,13 @@ export default {
                 rows:this.pagesize,
                 type:1
             }
-            api.getPublicContent(showPolicyContent).then(res=>{
+            api.getPublicContent(showPolicyContent).then(res=>{  
+                    console.log(res)     
+                    this.$message({
+                        showClose: true,
+                        message: res.msg,
+                        type: 'warning'
+                    })
                 this.tableData = res.obj.rows;
                 this.total = res.obj.total;
             })
@@ -141,20 +148,20 @@ export default {
         },
         // 编辑修改页面内容
         editorContent(id){
+            let _this = this;
             this.value = id.id;
             this.dialogVisible = true;
             let getId = {
-                id:id.id
+                id:this.value
             }
             api.getDetail(getId).then(res=>{
                 console.log(res)
                 this.editor.info = '';
                 let resData = res.obj;//后台返回的数据
+                _this.imgUrl = resData.pic;
                 this.titleInfo = resData.title;//标题内容
                 this.editor.info = resData.content;//编辑器内容
                 this.image = this.GLOBAL.BASE_URL+'/'+resData.pic;
-                console.log(this.image)
-                this.showPublic();//重新调用接口 刷新页面
             })
         },
         handleSizeChange(val) {
@@ -180,6 +187,7 @@ export default {
             let _this = this;
             // 利用fileReader对象获取file
             var file = e.target.files[0];
+            console.log(file)
             var filesize = file.size;
             var filename = file.name;
             // 2,621,440   2M
@@ -213,7 +221,7 @@ export default {
             console.log(this.editor.info)
             let publicPage = {
                 id:this.value,
-                pic:_this.image,
+                pic:_this.imgUrl,
                 title:_this.titleInfo,
                 content:_this.editor.info
             }
@@ -227,11 +235,12 @@ export default {
                 })
                 this.showPublic();
             }) 
+            
             this.titleInfo = '';
             this.image = '';
             this.editor.info = '';
             this.dialogVisible = false;    
-            location. reload()
+            // location. reload()
         },
         change (val) {
         this.editor.info1 = val

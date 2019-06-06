@@ -1,6 +1,6 @@
 
 <script>
-  const BASE_URL = 'cwcwx.wfust.edu.cn';
+  const BASE_URL = 'http://cwcwx.wfust.edu.cn';
   export default{
     BASE_URL
   }

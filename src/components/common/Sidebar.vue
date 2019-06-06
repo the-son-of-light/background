@@ -33,33 +33,33 @@
                     {
                         icon:'el-icon-star-on',
                         index:'1',
-                        title:'列表管理',
+                        title:'信息发布',
                         subs: [
                             {
                                 index: 'user',
-                                title: '通知公告列表'
+                                title: '通知公告'
                             },
                             {
                                 index: 'moneyList',
-                                title: '财政学堂列表'
+                                title: '财政学堂'
                             },
                             {
                                 index: 'policyList',
-                                title: '公务卡办理列表'
+                                title: '公务卡办理'
                             },{
                                 index: 'confrimList',
-                                title: '来款认领列表'
+                                title: '来款认领'
                             }
                         ]
                     },
                     {
                         icon: 'el-icon-date',
                         index: '3',
-                        title: '用户管理',
+                        title: '系统管理',
                         subs: [
                             {
                                 index: 'userManegement',
-                                title: '用户增删'
+                                title: '用户管理'
                             },
                             {
                                 index: 'authority',
@@ -67,7 +67,10 @@
                             },
                             {
                                 index: 'basicInformation',
-                                title: '基本信息管理'
+                                title: '基本信息'
+                            },{
+                                index: 'pass',
+                                title: '修改密码'
                             }
                         ]
                     }

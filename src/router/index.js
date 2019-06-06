@@ -65,7 +65,11 @@ const router =  new Router({
                     path: '/confirm',
                     component: resolve => require(['../components/page/confirm.vue'], resolve),
                     meta: { title: '来款认领',requireAuth: true, }
-                }, 
+                }, {
+                    path: '/pass',
+                    component: resolve => require(['../components/page/pass.vue'], resolve),
+                    meta: { title: '修改密码',requireAuth: true, }
+                }
             ]
         },
         {

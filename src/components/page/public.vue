@@ -131,7 +131,6 @@ export default {
                 this.$router.push({
                     path:'/user'
                 })
-                location.reload()
             }) 
         },
         change (val) {
@@ -164,6 +163,24 @@ export default {
 .editor{
     width: 100%;
 }
+
+.editor >>> table{
+    border: 1px solid #333;
+    text-align: center;
+}
+
+.editor >>> th{
+    border: 1px solid #333;
+}
+
+.editor >>> td{
+    border: 1px solid #333;
+}
+
+.editor >>> tr{
+    border: 1px solid #333;
+}
+
 .editor p{
     padding-bottom:10px;
 }
