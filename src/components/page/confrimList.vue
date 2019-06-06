@@ -38,7 +38,7 @@
             >
                 <div class="editor">
                     <p>标题：<el-input style="width:95%;" v-model="titleInfo" placeholder="请输入内容"></el-input></p>
-                    <p>图片：
+                    <p>缩略图:
                         <a href="javascript:;" class="file">选择图片
                             <input @change="uploadPhoto($event)" type="file" class="kyc-passin">
                         </a>
@@ -92,7 +92,8 @@ export default {
                 info: ''
             },
             isClear: false,
-            value:''
+            value:'',
+            imgUrl:''
         }
     },
     created(){
@@ -146,7 +147,8 @@ export default {
         },
         // 编辑修改页面内容
         editorContent(id){
-           this.value = id.id;
+            let _this = this;
+            this.value = id.id;
             this.dialogVisible = true;
             let getId = {
                 id:id.id
@@ -156,6 +158,7 @@ export default {
                 this.editor.info = '';
                 let resData = res.obj;//后台返回的数据
                 this.titleInfo = resData.title;//标题内容
+                _this.imgUrl = resData.pic;
                 this.editor.info = resData.content;//编辑器内容
                 this.image = this.GLOBAL.BASE_URL+'/'+resData.pic;
                 console.log(this.image)
@@ -201,6 +204,7 @@ export default {
             reader.onload = (e)=> {
                 // 读取到的图片base64 数据编码 将此编码字符串传给后台即可
                 _this.image = e.target.result;
+                _this.imgUrl = e.target.result;
                 console.log(this.image);  
             }
         },
@@ -217,7 +221,8 @@ export default {
             }
             console.log(this.editor.info)
             let publicPage = {
-                pic:_this.image,
+                id:this.value,
+                pic:_this.imgUrl,
                 title:_this.titleInfo,
                 content:_this.editor.info
             }

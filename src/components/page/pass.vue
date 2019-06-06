@@ -9,6 +9,7 @@
     </div>
 </template>
 <script>
+import api from '../../api/index'
 export default {
     name:'pass',
     data(){
@@ -46,6 +47,7 @@ export default {
     }
 }
 </script>
+
 <style scoped>
 .baseUserInfo{
     margin-top: 50px;

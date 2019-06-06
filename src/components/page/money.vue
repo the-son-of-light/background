@@ -2,8 +2,8 @@
     <div class="moneyBox">
         <div class="editor">
             <p>标题：<el-input style="width:95%;" v-model="titleInfo" placeholder="请输入内容"></el-input></p>
-            <p>图片：
-                <a href="javascript:;" class="file">选择文件
+            <p>缩略图:
+                <a href="javascript:;" class="file">选择图片
                     <input @change="uploadPhoto($event)" type="file" class="kyc-passin">
                 </a>
             </p>
