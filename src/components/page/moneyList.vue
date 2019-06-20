@@ -13,7 +13,8 @@
                 <el-table-column prop="createat" label="发布时间" > </el-table-column>
                 <el-table-column prop="addDelete" label="编辑">
                     <template slot-scope="scope">
-                        <el-button type="primary" @click="editorContent(scope.row)">编辑</el-button>       
+                        <el-button type="primary" @click="editorContent(scope.row)">编辑</el-button>     
+                        <el-button type="primary" @click="deleteContent(scope.row)">删除</el-button>      
                     </template>
                 </el-table-column>
             </el-table>
@@ -116,6 +117,7 @@ export default {
                     type: 'success'
                 })
             p.append(a)
+            a.className = 'download'
             a.innerText = file.name;
             a.href = response.data[0];
             a.download = file.name;
@@ -137,6 +139,23 @@ export default {
                 })
                 this.tableData = res.obj.rows;
                 this.total = res.obj.total;
+            })
+        },
+        // 删除文件
+        deleteContent(contentId){
+            console.log(contentId.id)
+            let id = {
+                id:contentId.id
+            }
+            api.DeleteFinance(id).then(res=>{
+                 // 图片大于2MB
+               this.$message({
+                    showClose: true,
+                    message: res.msg,
+                    type: 'success'
+                })
+                this.showPublic()
+                console.log(res)
             })
         },
         //上传图片

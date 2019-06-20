@@ -81,8 +81,8 @@ export default {
                 rows:this.pagesize
             }
             api.getUserInfo(page).then(res=>{
-                console.log(res.obj.rows)
-                for(let i of res.obj.rows){
+                console.log(res.obj.list)
+                for(let i of res.obj.list){
                     if(i.sex == 1){
                         i.sex = "男"
                     }else if(i.sex == 0){

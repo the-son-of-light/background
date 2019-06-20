@@ -21,15 +21,18 @@
                  <el-table-column
                 prop="role"
                 label="权限"
-                width=600
-                align="center"
+                width=500
+                header-align="center"
                 >
-                <template slot-scope="scope">
-                    <el-checkbox v-model="scope.row.role[0]" >通知公告</el-checkbox>
-                    <el-checkbox v-model="scope.row.role[1]" >财务学堂</el-checkbox>
-                    <el-checkbox v-model="scope.row.role[2]" >来款认领</el-checkbox>
-                    <el-checkbox v-model="scope.row.role[3]" >公务卡办理</el-checkbox>
-                    <el-checkbox v-model="scope.row.role[4]" >超级管理员</el-checkbox>
+                <template slot-scope="scope" >
+                    <!-- <el-checkbox v-model="scope.row.list.role" v-for='scope.row.list'>{{scope.row.list.role}}</el-checkbox> -->
+
+                    <el-checkbox v-model="item.stast" v-for="item in scope.row.objList" :key="item.role">{{item.name}}</el-checkbox>
+                    <!-- <el-checkbox v-model="scope.row.list.role" >{{scope.row.list.role}}</el-checkbox>
+                    <el-checkbox v-model="scope.row.list.role" >{{scope.row.list.role}}</el-checkbox>
+                    <el-checkbox v-model="scope.row.list.role" >{{scope.row.list.role}}</el-checkbox>
+                    <el-checkbox v-model="scope.row.list.role" >{{scope.row.list.role}}</el-checkbox>
+                    <el-checkbox v-model="scope.row.list.role" >{{scope.row.list.role}}</el-checkbox> -->
                 </template>
                 </el-table-column>
                 <el-table-column
@@ -84,41 +87,71 @@ export default {
             let page = {
                 page:this.currentPage,
                 rows:this.pagesize
-            }
+            }            
             api.getUserInfo(page).then(res=>{
-                console.log(res)
-                for(let i of res.obj.rows){
-                    if(i.sex == 1){
-                        i.sex = "男"
-                    }else if(i.sex == 0){
-                        i.sex = "女"
+                for(let i of res.obj.list){
+                    let objList = [
+                        {
+                            role:'141',
+                            name:'超级管理员',
+                            stast:false
+                        },
+                        {
+                            role:'142',
+                            name:'通知公告',
+                            stast:false
+                        },
+                        {
+                            role:'143',
+                            name:'财务学堂',
+                            stast:false
+                        },
+                        {
+                            role:'144',
+                            name:'来款认领',
+                            stast:false
+                        },
+                        {
+                            role:'145',
+                            name:'公务卡办理',
+                            stast:false
+                        },
+                        {
+                            role:'146',
+                            name:'预算指南',
+                            stast:false
+                        },
+                        {
+                            role:'147',
+                            name:'科研指南',
+                            stast:false
+                        }
+                    ];
+                    for(let k of objList){
+                        for(let j of i.list){                            
+                            if(k.role===j.role){
+                                k.stast = true;
+                            }
+                        }
                     }
-                    if(i.role == null || i.role == ''){
-                        i.role = '00000'
-                    }
-                    i.role = i.role.split('')
-                    for(let j in i.role ){
-                        i.role[j] == '0'?i.role[j] = false:i.role[j] = true;                       
-                    }
+                    i.objList = objList;
                     _this.tableData.push(i)
                 }
                 this.total = res.obj.total;
             })
         },
         // 保存权限
-        add(id){
-            let role = id.role;
-            for(let k in role){
-               role[k]?role[k]=1:role[k]=0;
+        add(list){
+            let arr = []
+            for(let i of list.objList){
+                if (i.stast){ //为真值的时候  这样就可以了，，除了fales  0  还有对象和数组 好的咧
+                    arr.push(i.role)
+                }
             }
-          
-            role.join('').split('')
-            console.log(role.join('').split(''))
             let authority = {
-                userid:id.id,
-                role:role.join('')
+                userid:list.id,
+                role:arr.join(',')
             }
-            console.log(authority.role)
             api.addAuthority(authority).then(res=>{
                 if(res.msg == "添加成功！"){
                     this.$message({
@@ -135,8 +168,6 @@ export default {
                 userid:id.id
             }
             api.delAuthority(delContent).then(res=>{
-                console.log(res.msg)
-                console.log(res.msg == "禁言成功")
                 if(res.msg == "禁用成功！"){
                     this.$message({
                         showClose: true,

@@ -7,7 +7,7 @@ const router =  new Router({
   routes: [
         {
             path: '/',
-            redirect: 'user'
+            redirect: 'show'
         },
         {
             path: '/',
@@ -30,7 +30,7 @@ const router =  new Router({
                     meta: { title: '公务卡办理展示列表',requireAuth: true, }
                 },
                 {
-                    path: '/user',
+                    path: '/show',
                     component: resolve => require(['../components/page/show.vue'], resolve),
                     meta: { title: '通知公告展示列表',requireAuth: true, }
                 },   
@@ -69,6 +69,22 @@ const router =  new Router({
                     path: '/pass',
                     component: resolve => require(['../components/page/pass.vue'], resolve),
                     meta: { title: '修改密码',requireAuth: true, }
+                }, {
+                    path: '/budget',
+                    component: resolve => require(['../components/page/budget.vue'], resolve),
+                    meta: { title: '预算指南',requireAuth: true, }
+                }, {
+                    path: '/budgetList',
+                    component: resolve => require(['../components/page/budgetList.vue'], resolve),
+                    meta: { title: '预算指南列表',requireAuth: true, }
+                }, {
+                    path: '/guide',
+                    component: resolve => require(['../components/page/guide.vue'], resolve),
+                    meta: { title: '科研指南',requireAuth: true, }
+                }, {
+                    path: '/guideList',
+                    component: resolve => require(['../components/page/guideList.vue'], resolve),
+                    meta: { title: '科研指南列表',requireAuth: true, }
                 }
             ]
         },

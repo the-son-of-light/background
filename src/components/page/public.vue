@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="editor">
-            <p>标题：<el-input style="width:95%;" v-model="titleInfo" placeholder="请输入内容"></el-input></p>
+            <p>标题：<el-input style="width:95%;" v-model="titleInfo" autofocus='true' placeholder="请输入内容"></el-input></p>
             <p>缩略图:
                 <a href="javascript:;" class="file">选择图片
                     <input @change="uploadPhoto($event)" type="file" class="kyc-passin">
@@ -53,6 +53,8 @@ export default {
         }
     },
     methods: {
+
+        
         // 上传文件
         handleSuccess(response,file, fileList){
             //上传成功要处理的事
@@ -69,11 +71,13 @@ export default {
                     type: 'success'
                 })
             p.append(a)
+            a.className = 'download'
             a.innerText = file.name;
             a.href = response.data[0];
             a.download = file.name;
             div.append(p)
             this.editor.info += div.innerHTML;
+            console.log(this.editor.info)
         },
 
         uploadPhoto(e) {
@@ -129,7 +133,7 @@ export default {
                 this.image = '';
                 this.editor.info = '';
                 this.$router.push({
-                    path:'/user'
+                    path:'/show'
                 })
             }) 
         },

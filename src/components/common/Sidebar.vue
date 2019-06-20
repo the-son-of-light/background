@@ -36,12 +36,12 @@
                         title:'信息发布',
                         subs: [
                             {
-                                index: 'user',
+                                index: 'show',
                                 title: '通知公告'
                             },
                             {
                                 index: 'moneyList',
-                                title: '财政学堂'
+                                title: '财务学堂'
                             },
                             {
                                 index: 'policyList',
@@ -49,6 +49,12 @@
                             },{
                                 index: 'confrimList',
                                 title: '来款认领'
+                            },{
+                                index: 'budgetList',
+                                title: '预算指南'
+                            },{
+                                index: 'guideList',
+                                title: '科研指南'
                             }
                         ]
                     },

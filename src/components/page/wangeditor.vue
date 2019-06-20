@@ -51,12 +51,7 @@ export default {
     seteditor () {
       this.editor = new E(this.$refs.toolbar, this.$refs.editor)
       this.editor.customConfig.uploadImgShowBase64 = true // base 64 存储图片
-      this.editor.customConfig.uploadImgServer = 'http://101.200.36.164:8080/api/Administration/group/UploadImage1'// 配置服务器端地址
-      this.editor.customConfig.uploadImgHeaders = {      }// 自定义 header
-      this.editor.customConfig.uploadFileName = '' // 后端接受上传文件的参数名
-      this.editor.customConfig.uploadImgMaxSize = 2 * 1024 * 1024 // 将图片大小限制为 2M
-      this.editor.customConfig.uploadImgMaxLength = 6 // 限制一次最多上传 3 张图片
-      this.editor.customConfig.uploadImgTimeout = 3 * 60 * 1000 // 设置超时时间
+      this.editor.customConfig.uploadImgServer = this.GLOBAL.BASE_URL+'/api/Administration/group/UploadImage1'
 
       // 配置菜单
       this.editor.customConfig.menus = [

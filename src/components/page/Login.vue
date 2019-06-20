@@ -57,7 +57,7 @@ import store from '../../store'
                         // self.$store.commit('USERNAME',res.obj.userName);
                         sessionStorage.setItem("name",res.obj.userName);
                         this.$router.push({
-                            path:'/user'
+                            path:'/show'
                         })
                       } else if(res.code==-1){
                         this.$message({

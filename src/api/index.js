@@ -67,9 +67,25 @@ export default {
             console.error(err)
         })
     },
+    // 删除通知公告 /api/release/controller/DeleteNotice "id"
+    DeleteNotice(id){
+        return axios.post('/api/release/controller/DeleteNotice',id).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    },
     // 获取财政学堂页面内容 /api/controller/QueryFinance 
     QueryFinance(showPublicContent){
         return axios.post('/api/controller/QueryFinance',showPublicContent).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    },
+    //删除财政学堂 /api/release/controller/DeleteFinance
+    DeleteFinance(id){
+        return axios.post('/api/release/controller/DeleteFinance',id).then(res=>{
             return res;
         }).catch(err=>{
             console.error(err);
@@ -83,12 +99,28 @@ export default {
             console.error(err)
         })
     },
+    //删除公务卡办理 /api/release/controller/DeleteOfficial
+    DeleteOfficial(id){
+        return axios.post('/api/release/controller/DeleteOfficial',id).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    },
     // 获取来款认领页面内容  /api/controller/QueryPolicy
     QueryPolicy(showPublicContent){
         return axios.post('/api/controller/QueryPolicy',showPublicContent).then(res=>{
             return res;
         }).catch(err=>{
             console.error(err)
+        })
+    },
+    //删除来款认领  /api/release/controller/DeletePolicy
+    DeletePolicy(id){
+        return axios.post('/api/release/controller/DeletePolicy',id).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
         })
     },
     // 获取详情
@@ -227,6 +259,77 @@ export default {
         }).catch(err=>{
             console.error(err);
         })
-    }
-
+    },
+    // 添加预算指南 /api/release/controller/AddFinancialGuide "title","content"
+    AddFinancialGuide(showPolicyContent){
+        return axios.post('/api/release/controller/AddFinancialGuide',showPolicyContent).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err);
+        })
+    },
+    // 删除预算指南 api/release/controller/DeleteFinancialGuide "id"
+    DeleteFinancialGuide(id){
+        return axios.post('api/release/controller/DeleteFinancialGuide',id).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err)
+        })
+    },
+    // 修改预算指南  "/api/release/controller/UpdateFinancialGuide"  "id","title","content"
+    UpdateFinancialGuide(publicPage){
+        return axios.post('/api/release/controller/UpdateFinancialGuide',publicPage).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err)
+        })
+    },
+    // 查询预算指南  /api/controller/QueryFinancialGuide  "page", "rows","type"
+    QueryFinancialGuide(showPolicyContent){
+        return axios.post('/api/controller/QueryFinancialGuide',showPolicyContent).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err)
+        })
+    },
+    // 添加科研指南  "/api/release/controller/AddResearch" "/api/release/controller/AddResearch"
+    AddResearch(showPolicyContent){
+        return axios.post('/api/release/controller/AddResearch',showPolicyContent).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err)
+        })
+    },
+    // 删除科研指南  "/api/release/controller/DeleteResearch"   "id"
+    DeleteResearch(id){
+        return axios.post('/api/release/controller/AddResearch',id).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err)
+        })
+    },
+    // 修改科研指南  "/api/release/controller/UpdateResearch"  "id","title","content"
+    UpdateResearch(publicPage){
+        return axios.post('/api/release/controller/UpdateResearch',publicPage).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err)
+        })
+    },
+    // 查询科研指南 "/api/controller/QueryResearch" "page", "rows","type"
+    QueryResearch(showPolicyContent){
+        return axios.post('/api/controller/QueryResearch',showPolicyContent).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err)
+        })
+    },
+    // 删除科研指南 "/api/release/controller/DeleteResearch"  "id"
+    DeleteResearch(id){
+        return axios.post('/api/release/controller/DeleteResearch',id).then(res=>{
+            return res;
+        }).catch(err=>{
+            console.error(err)
+        })
+    },
 }
